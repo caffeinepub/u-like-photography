@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== FONTS ===== */
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/PlayfairDisplay-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/assets/fonts/InstrumentSerif-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans-Variable.woff2") format("woff2");
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== DESIGN TOKENS ===== */
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Luxury Dark Theme */
+    --background: 0.09 0 0;
+    --foreground: 0.97 0.01 89;
+    --card: 0.12 0.005 89;
+    --card-foreground: 0.95 0.01 89;
+    --popover: 0.11 0.005 89;
+    --popover-foreground: 0.95 0.01 89;
+
+    /* Gold primary */
+    --primary: 0.78 0.12 85;
+    --primary-foreground: 0.08 0 0;
+
+    /* Dark secondary */
+    --secondary: 0.16 0.005 89;
+    --secondary-foreground: 0.85 0.02 89;
+
+    /* Muted dark */
+    --muted: 0.14 0.005 89;
+    --muted-foreground: 0.55 0.01 89;
+
+    /* Gold accent */
+    --accent: 0.82 0.14 85;
+    --accent-foreground: 0.08 0 0;
+
+    /* Destructive */
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.97 0 0;
+
+    /* Borders */
+    --border: 0.22 0.01 89;
+    --input: 0.18 0.008 89;
+    --ring: 0.78 0.12 85;
+
+    /* Charts */
+    --chart-1: 0.78 0.12 85;
+    --chart-2: 0.65 0.1 75;
+    --chart-3: 0.5 0.08 60;
+    --chart-4: 0.82 0.14 95;
+    --chart-5: 0.38 0.06 50;
+
+    /* Sidebar */
+    --sidebar: 0.08 0 0;
+    --sidebar-foreground: 0.9 0.01 89;
+    --sidebar-primary: 0.78 0.12 85;
+    --sidebar-primary-foreground: 0.08 0 0;
+    --sidebar-accent: 0.14 0.005 89;
+    --sidebar-accent-foreground: 0.85 0.02 89;
+    --sidebar-border: 0.18 0.01 89;
+    --sidebar-ring: 0.78 0.12 85;
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "General Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ===== CUSTOM UTILITIES ===== */
+@layer utilities {
+  .font-display {
+    font-family: "Playfair Display", serif;
+  }
+
+  .font-serif-elegant {
+    font-family: "Instrument Serif", serif;
+  }
+
+  .text-gold {
+    color: oklch(0.78 0.12 85);
+  }
+
+  .bg-gold {
+    background-color: oklch(0.78 0.12 85);
+  }
+
+  .border-gold {
+    border-color: oklch(0.78 0.12 85);
+  }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, oklch(0.72 0.13 80), oklch(0.85 0.14 90), oklch(0.72 0.13 80));
+  }
+
+  .gold-text-gradient {
+    background: linear-gradient(135deg, oklch(0.72 0.13 80), oklch(0.9 0.15 90), oklch(0.72 0.13 80));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .luxury-card {
+    @apply bg-card border border-border rounded-lg;
+    box-shadow: 0 0 0 1px oklch(0.78 0.12 85 / 0.1), 0 4px 24px oklch(0 0 0 / 0.4);
+  }
+
+  .luxury-card-hover {
+    transition: all 0.3s ease;
+  }
+
+  .luxury-card-hover:hover {
+    box-shadow: 0 0 0 1px oklch(0.78 0.12 85 / 0.3), 0 8px 40px oklch(0 0 0 / 0.6);
+    transform: translateY(-2px);
+  }
+
+  .gold-shimmer {
+    background: linear-gradient(90deg, transparent 0%, oklch(0.78 0.12 85 / 0.15) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  .noise-bg {
+    position: relative;
+  }
+
+  .noise-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes scan-line {
+  0% { top: -10%; }
+  100% { top: 110%; }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: oklch(0.09 0 0);
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.78 0.12 85 / 0.4);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.78 0.12 85 / 0.7);
+}
